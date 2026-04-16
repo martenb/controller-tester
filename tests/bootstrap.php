@@ -11,7 +11,11 @@ Environment::setupTester();
 Environment::setupTimezone('Europe/Prague');
 
 // Configure many constants
-Environment::setupFolders(__DIR__);
+if (method_exists(Environment::class, 'setupFolders')) {
+	Environment::setupFolders(__DIR__);
+} else {
+	Environment::setupVariables(__DIR__);
+}
 
 // Fill global variables
 Environment::setupGlobalVariables();

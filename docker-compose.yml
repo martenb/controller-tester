@@ -1,0 +1,21 @@
+# Local development: PHP CLI + Composer, project mounted at /app.
+#
+# Install dependencies:
+#   docker compose run --rm php composer install
+#
+# Run the full QA suite (same as CI):
+#   docker compose run --rm php composer qa
+#
+# Override PHP version (published php:*-cli tag, e.g. 7.4, 8.0, 8.1, 8.2):
+#   docker compose build --build-arg PHP_VERSION=8.2 php
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.4}
+    working_dir: /app
+    volumes:
+      - .:/app
